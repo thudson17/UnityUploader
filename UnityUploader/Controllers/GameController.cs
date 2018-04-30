@@ -16,21 +16,18 @@ namespace UnityUploader.Controllers
     {
         private JSONDataManager dm = new JSONDataManager();
 
-        //home page (list playable games via partial view)
+        //home page (list playable games, view components)
         [AllowAnonymous]
         public IActionResult Index()
         {
             return View();
         }
 
-        //list all games..
-        [AllowAnonymous]
-        public IActionResult List()
+        //play the selected game
+        public IActionResult Play(string Name)
         {
-            List<Game> Model = dm.LoadGameList().OrderBy(l => l.Name).ToList();
-            return PartialView(Model);
+            return Redirect(GlobalConfig.getKeyValue("WebPath") + Name);
         }
-
 
 
 
