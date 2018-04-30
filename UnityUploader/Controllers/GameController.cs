@@ -32,6 +32,8 @@ namespace UnityUploader.Controllers
         }
 
 
+
+
         //Create games (needs auth check..)
         [Authorize]
         public IActionResult Create()
@@ -40,6 +42,31 @@ namespace UnityUploader.Controllers
             Model.FilePath = GlobalConfig.getKeyValue("DeployPathRoot");
             return View(Model);
         }
+
+        //delete game
+        [Authorize]
+        [HttpGet]
+        public IActionResult Delete(String Name)
+        {
+            //find game to delete in json (just use name)
+            var games = dm.LoadGameList();
+            var game_to_remove = games.Where(g => g.Name == Name).FirstOrDefault();
+
+            if (game_to_remove != null)
+            {
+                //delete file contents
+                if (System.IO.File.Exists(game_to_remove.FilePath))
+                    System.IO.File.Delete(game_to_remove.FilePath);
+
+                //remove game from json
+                games.Remove(game_to_remove);
+                dm.SaveGameList(games);
+            }
+
+
+            return RedirectToAction("Index");
+        }
+
         [HttpPost]
         [Authorize]
         public IActionResult Create(VM_Game Model)
@@ -50,12 +77,12 @@ namespace UnityUploader.Controllers
                 return View(Model);
 
             try
-            { 
+            {
 
-            //map our game vModel to Game Model (for JSON serialization)
-            Game GameData = new Game();
-            GameData.FilePath = Model.FilePath;
-            GameData.Name = Model.Name;
+                //map our game vModel to Game Model (for JSON serialization)
+                Game GameData = new Game();
+                GameData.FilePath = Model.FilePath;
+                GameData.Name = Model.Name;
 
                 if (Model.UploadedZipFile != null)
                 {
@@ -72,9 +99,16 @@ namespace UnityUploader.Controllers
                     //cleanup the temp zip file
                     System.IO.File.Delete(FileName_Temp);
 
-                    return RedirectToAction("Index");
+
                 }
 
+                //save the new game to our json file
+                var modified_game_list = dm.LoadGameList();
+                modified_game_list.Add(GameData);
+                dm.SaveGameList(modified_game_list);
+
+
+                return RedirectToAction("Index");
 
             }
             catch (Exception ex)
