@@ -26,7 +26,9 @@ namespace UnityUploader.Controllers
         //play the selected game
         public IActionResult Play(string Name)
         {
-            return Redirect(GlobalConfig.getKeyValue("WebPath") + Name);
+            ViewBag.WebPath = GlobalConfig.getKeyValue("WebPath") + Name;
+            return View();
+          //  return Redirect(GlobalConfig.getKeyValue("WebPath") + Name); <-- this return full redirect to game above is iframe wrapper
         }
 
 

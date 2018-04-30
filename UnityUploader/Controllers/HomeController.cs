@@ -12,7 +12,7 @@ namespace UnityUploader.Controllers
     {
         public IActionResult Index()
         {
-            return RedirectToAction("Index","Games");
+            return RedirectToAction("Index","Game");
         }
 
 

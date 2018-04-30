@@ -11,7 +11,7 @@
     @foreach (var item in Model)
     {
 
-        <div class="panel btn-link" onclick="launchGame('@item.Name');">
+        <div class="panel btn-link" onclick="launchGame('@item.Name','@Url.Action("Play","Game")');" >
 
             <div class="panel-heading">
                 <h1>@item.Name</h1>
@@ -34,11 +34,9 @@
 
 <script>
 
-  function  launchGame(Name)
+  function  launchGame(Name, URL)
     {
-
-      console.log(Name);
-
+      window.location = URL + "?Name=" + Name;
     }
 
 </script>
