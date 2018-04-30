@@ -19,6 +19,7 @@ namespace UnityUploader.Models
         [DisplayName("File Path (Inetpub)")]
         [Required]
         public string FilePath { get; set; }
+        public string Description { get; set; }
         public IFormFile UploadedZipFile { get; set; }
 
     }

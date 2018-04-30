@@ -1,7 +1,44 @@
 ﻿@model IEnumerable<UnityUploader.Models.Game>
 
-@foreach (var item in Model)
-{
-    <span>@item.Name</span>
+<style>
+    .panel {
+        cursor: pointer;
+    }
+</style>
 
-}
+<div class="container">
+
+    @foreach (var item in Model)
+    {
+
+        <div class="panel btn-link" onclick="launchGame('@item.Name');">
+
+            <div class="panel-heading">
+                <h1>@item.Name</h1>
+            </div>
+            <div class="panel-body">
+
+                <div class="panel-info">
+                    <span>@item.Description</span>
+                </div>
+            </div>
+
+
+        </div>
+
+
+
+    }
+
+</div>
+
+<script>
+
+  function  launchGame(Name)
+    {
+
+      console.log(Name);
+
+    }
+
+</script>
