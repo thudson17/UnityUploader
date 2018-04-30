@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<style>
+    .Content
+    {
+        margin:auto;
+        margin-top:10px;
+        width:100%;
+        min-height:768px;
+    }
+</style>
+
+<div class="Content">
+
+
+    @inject SignInManager<ApplicationUser> SignInManager
+    @if (SignInManager.IsSignedIn(User))
+    {<a class="btn btn-lg btn-primary" asp-area="" asp-controller="Game" asp-action="Create">Add Game</a>}
+
+
+    @await Component.InvokeAsync("GameList")
+
+</div>
+

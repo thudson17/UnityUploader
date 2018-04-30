@@ -3,7 +3,10 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - UnityUploader</title>
+    <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+    <meta name="theme-color" content="#33cc33">
+    <title>Tom's Unity Games</title>
 
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
@@ -26,13 +29,12 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">UnityUploader</a>
+                <a asp-area="" asp-controller="Game" asp-action="Index" class="navbar-brand">Tom's Unity Games</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                    @*<li><a asp-area="" asp-controller="Games" asp-action="Index">Games</a></li>*@
+                  
                 </ul>
                 @await Html.PartialAsync("_LoginPartial")
             </div>
@@ -40,9 +42,10 @@
     </nav>
     <div class="container body-content">
         @RenderBody()
+        @ViewData["ServerMessage"]
         <hr />
         <footer>
-            <p>&copy; 2018 - UnityUploader</p>
+            <p>&copy; 2018 - Tom Hudson</p>
         </footer>
     </div>
 
