@@ -1,0 +1,8 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+@inject SignInManager<ApplicationUser> SignInManager
+@if (SignInManager.IsSignedIn(User))
+{<a asp-area="" asp-controller="Game" asp-action="Create">Add Game</a>}

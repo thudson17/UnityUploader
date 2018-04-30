@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using UnityUploader.Models;
+using UnityUploader.Services;
 
 namespace UnityUploader.Data
 {
@@ -14,20 +15,11 @@ namespace UnityUploader.Data
 
     public class JSONDataManager
     {
-        public static IConfiguration Configuration { get; set; }
-
-
         private string _jsonFilePath;
 
         public JSONDataManager()
         {
-            //use terrible .net core config API to get path to json file we write to
-            var builder = new ConfigurationBuilder()
-            .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile("appsettings.json");
-
-            Configuration = builder.Build();
-            this._jsonFilePath = Configuration.GetSection("AppConfiguration")["JSONDataPath"];
+            this._jsonFilePath = GlobalConfig.getKeyValue("JSONDataPath");
         }
 
         /// <summary>
@@ -65,17 +57,9 @@ namespace UnityUploader.Data
         /// <returns></returns>
         public Game LoadGame(string Name)
         {
-            return LoadGameList().Where(g => g.name == Name).FirstOrDefault();
+            return LoadGameList().Where(g => g.Name == Name).FirstOrDefault();
         }
 
-        /// <summary>
-        /// Should probably be in some more logicial spot but gets path to toss zip dumps temporarily to
-        /// </summary>
-        /// <returns></returns>
-        public string getZIPDumpsPath()
-        {
-            return Configuration.GetSection("AppConfiguration")["ZIPDumpsPath"];
-        }
 
 
     }

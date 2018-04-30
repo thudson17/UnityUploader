@@ -9,11 +9,8 @@ namespace UnityUploader.Models
     [Serializable]
     public class Game
     {
-        public string name;
-        public string filePath;
-        public string webPath;
-
-       
+        public string Name { get; set; }
+        public string FilePath { get; set; }
 
     }
 }
